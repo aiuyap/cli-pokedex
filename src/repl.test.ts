@@ -3,24 +3,20 @@ import { describe, expect, test } from "vitest";
 
 describe.each([
   {
-    input: "  hello  world  ",
+    input: "hello world",
     expected: ["hello", "world"],
   },
   {
-    input: "hello",
-    expected: ["hello"],
+    input: "Charmander Bulbasaur PIKACHU",
+    expected: ["charmander", "bulbasaur", "pikachu"],
   },
   {
-    input: "HeLLo",
-    expected: ["hello"],
+    input: "  hello world  ",
+    expected: ["hello", "world"],
   },
   {
-    input: "   hello   ",
-    expected: ["hello"],
-  },
-  {
-    input: "hello     world     again",
-    expected: ["hello", "world", "again"],
+    input: "hello     world",
+    expected: ["hello", "world"],
   },
   {
     input: "\thello\tworld\t",
@@ -31,8 +27,16 @@ describe.each([
     expected: ["hello", "world"],
   },
   {
-    input: " \t hello \n world \r\n again \t ",
-    expected: ["hello", "world", "again"],
+    input: " \t Charmander \n Bulbasaur \r\n PIKACHU \t ",
+    expected: ["charmander", "bulbasaur", "pikachu"],
+  },
+  {
+    input: "HELLO",
+    expected: ["hello"],
+  },
+  {
+    input: "   HELLO   ",
+    expected: ["hello"],
   },
   {
     input: "",
@@ -43,19 +47,21 @@ describe.each([
     expected: [],
   },
   {
-    input: "Pikachu THUNDERBOLT",
-    expected: ["pikachu", "thunderbolt"],
+    input: " \t \n \r\n ",
+    expected: [],
   },
   {
-    input: "catch, PIKACHU!",
-    expected: ["catch,", "pikachu!"],
+    input: "one two three four",
+    expected: ["one", "two", "three", "four"],
   },
   {
-    input: "battle 25 1337",
-    expected: ["battle", "25", "1337"],
+    input: "MiXeD CaSe iNpUt",
+    expected: ["mixed", "case", "input"],
   },
-
-  // TODO: more test cases here
+  {
+    input: "123 ABC def",
+    expected: ["123", "abc", "def"],
+  },
 ])("cleanInput($input)", ({ input, expected }) => {
   test(`Expected: ${expected}`, () => {
     const actual = cleanInput(input);
