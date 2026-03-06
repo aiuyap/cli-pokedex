@@ -23,7 +23,7 @@ export function commandExit() {
 }
 
 export function commandHelp() {
-  console.log("Welcome to the Pokedex");
+  console.log("Welcome to the Pokedex!");
   console.log("Usage: \n\n");
   const cmds = getCommands();
   for (const command of Object.values(cmds)) {
