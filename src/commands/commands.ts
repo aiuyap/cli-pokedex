@@ -1,4 +1,4 @@
-import { CLICommand } from "src/types/command.js";
+import type { CLICommand } from "src/types/command.js";
 
 
 export function getCommands(): Record<string, CLICommand> {
