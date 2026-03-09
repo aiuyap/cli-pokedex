@@ -3,8 +3,8 @@ import { State } from "./state";
 export async function commandMap(state: State) {
 
   let currentURL = "location-area";
-  if (!state.prevLocationsURL || !state.nextLocationURL) {
-    currentURL = getPathAndSearch(state.nextLocationURL ?? currentURL);
+  if (state.nextLocationURL && state.nextLocationURL) {
+    currentURL = getPathAndSearch(state.nextLocationURL);
   }
   const getLoc = await state.pokeapi.fetchLocations(currentURL);
   state.nextLocationURL = getLoc.next;

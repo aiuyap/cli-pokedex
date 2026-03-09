@@ -4,8 +4,8 @@ import { State } from "./state";
 export async function commandMapB(state: State) {
 
   let currentURL = "location-area";
-  if (!state.prevLocationsURL || !state.nextLocationURL) {
-    currentURL = getPathAndSearch(state.prevLocationsURL ?? currentURL);
+  if (state.prevLocationsURL && state.nextLocationURL) {
+    currentURL = getPathAndSearch(state.prevLocationsURL);
   }
   const getLoc = await state.pokeapi.fetchLocations(currentURL);
   state.nextLocationURL = getLoc.next;

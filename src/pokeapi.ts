@@ -1,18 +1,29 @@
+import { Cache } from "./pokecache.js";
+
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
   currentLocation: Location[] | undefined;
+  cache: Cache;
 
   constructor() {
+    this.cache = new Cache(50000);
   }
 
   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
     const getLocationsURL = `${PokeAPI.baseURL}/${pageURL}`;
+    const checkCache = this.cache.get(getLocationsURL);
+    if(typeof checkCache !== "undefined") {
+       return checkCache;
+    }
+
     try {
       const res = await fetch(getLocationsURL, {
         method: "GET"
       });
-      const result = res.json() as Promise<ShallowLocations>;
-      this.currentLocation = (await result).results;
+      const result: ShallowLocations = await res.json();
+      this.currentLocation = result.results;
+      this.cache.add(getLocationsURL, result);
+  
       return result;
     } catch (e) {
       if (e instanceof Error) {
