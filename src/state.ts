@@ -5,6 +5,7 @@ import { PokeAPI } from "./pokeapi.js";
 import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { commandExplore } from "./command_explore.js";
+import { commandCatch } from "./command_catch.js";
 
 export type CLICommand = {
   name: string;
@@ -16,9 +17,36 @@ export type State = {
   readline: Interface,
   commands: Record<string, CLICommand>,
   pokeapi: PokeAPI,
+  pokedex: Record<string, Pokemon>,
   nextLocationURL?: string,
   prevLocationsURL?: string | null
 }
+
+export type Pokemon = {
+  base_experience: number,
+  height: number,
+  weight: number,
+  stats: PokemonStats[],
+  types: PokemonTypes[]
+}
+
+export type PokemonStats = {
+  base_stat: number,
+  effort: number,
+  stat: {
+    name: string,
+    url: string
+  }
+}
+
+export type PokemonTypes = {
+  slot: number,
+  type: {
+    name: string,
+    url: string
+  }
+}
+
 
 export function initState(): State {
   const readline = createInterface({
@@ -28,10 +56,12 @@ export function initState(): State {
   })
   const commands = getCommands();
   const pokeapi = new PokeAPI();
+  const pokedex: Record<string, Pokemon> = {};
     return {
       readline,
       commands,
-      pokeapi
+      pokeapi,
+      pokedex
     };
 }
 
@@ -56,6 +86,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: "explore <area-name>",
       description: "Explore the area",
       callback: commandExplore,
+    },
+    catch: {
+      name: "catch <pokemon-name>",
+      description: "Catch a pokemon",
+      callback: commandCatch,
     },
     exit: {
       name: "exit",
