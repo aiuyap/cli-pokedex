@@ -3,6 +3,7 @@ import { commandHelp } from "./command_help.js";
 import { commandExit } from "./command_exit.js";
 import { PokeAPI } from "./pokeapi.js";
 import { commandMap } from "./command_map.js";
+import { commandMapB } from "./command_mapb.js";
 
 export type CLICommand = {
   name: string;
@@ -42,8 +43,13 @@ export function getCommands(): Record<string, CLICommand> {
     },
     map: {
       name: "map",
-      description: "Show current locations",
+      description: "Show current / next locations",
       callback: commandMap,
+    },
+    mapb: {
+      name: "mapb",
+      description: "Show previous previous locations",
+      callback: commandMapB,
     },
     exit: {
       name: "exit",

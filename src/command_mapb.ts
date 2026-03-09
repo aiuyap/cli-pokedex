@@ -1,10 +1,11 @@
+import { getPathAndSearch } from "./command_map";
 import { State } from "./state";
 
-export async function commandMap(state: State) {
+export async function commandMapB(state: State) {
 
   let currentURL = "location-area";
   if (!state.prevLocationsURL || !state.nextLocationURL) {
-    currentURL = getPathAndSearch(state.nextLocationURL ?? currentURL);
+    currentURL = getPathAndSearch(state.prevLocationsURL ?? currentURL);
   }
   const getLoc = await state.pokeapi.fetchLocations(currentURL);
   state.nextLocationURL = getLoc.next;
@@ -14,8 +15,4 @@ export async function commandMap(state: State) {
   for(const loc of arrOfLocations) {
     console.log(loc.name);
   }
-}
-
-export function getPathAndSearch(url: string) {
-  return url.replace("https://pokeapi.co/api/v2/", "");
 }
