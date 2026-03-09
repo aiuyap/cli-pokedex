@@ -5,10 +5,10 @@ export async function commandCatch(state: State, ...input: string[]) {
   const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
   console.log(`Throwing a Pokeball at ${pokemonName}...`)
   await delay(1000);
-  
+
   try {
     const res = await fetch(pokemonURL);
-     if (res.status === 404 || res.statusText === "Not Found") {
+     if (res.status !== 200 || res.statusText === "Not Found") {
       console.log("Pokemon not found, try again...");
       return
     }
