@@ -9,7 +9,7 @@ export function cleanInput(str: string): string[] {
 export function startREPL(state: State) {
   const rl = state.readline;
   rl.prompt();
-  rl.on("line", (dirtyInput) => {
+  rl.on("line", async (dirtyInput) => {
     const input = cleanInput(dirtyInput);
     if (!input.length) {
       rl.prompt();
@@ -19,7 +19,7 @@ export function startREPL(state: State) {
     if (!command) {
       console.log("Unknown command");
     } else {
-      command.callback(state);
+      await command.callback(state);
     }
     rl.prompt();
   });
