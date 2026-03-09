@@ -19,7 +19,7 @@ export function startREPL(state: State) {
     if (!command) {
       console.log("Unknown command");
     } else {
-      await command.callback(state);
+      await command.callback(state, ...input);
     }
     rl.prompt();
   });

@@ -7,6 +7,7 @@ export class PokeAPI {
 
   constructor() {
     this.cache = new Cache(50000);
+    this.fetchLocations(`location-area`);
   }
 
   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
