@@ -1,4 +1,4 @@
-import { getPathAndSearch } from "./command_map";
+import { getPathAndSearch } from "./command_map.js";
 import { State } from "./state";
 
 export async function commandMapB(state: State) {
